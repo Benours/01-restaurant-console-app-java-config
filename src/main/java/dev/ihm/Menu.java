@@ -7,21 +7,34 @@ import dev.ihm.options.OptionListerPlats;
 import dev.ihm.options.OptionTerminer;
 import dev.service.IPlatService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+
+@Component
+@ComponentScan("dev.ihm.options")
 public class Menu {
 
     private Map<Integer, IOptionMenu> actions = new HashMap<>();
 
     private String menu;
     private Scanner scanner;
-
-    public Menu(Scanner scanner, IPlatService service) {
-        actions.put(1, new OptionListerPlats(service));
-        actions.put(2, new OptionAjouterPlat(scanner, service));
-        actions.put(99, new OptionTerminer());
+    
+    private List<IOptionMenu> listMenu = new ArrayList<>();
+    
+    public Menu(Scanner scanner, IPlatService service, List<IOptionMenu> listMenu) {
+    	int i = 0;
+    	for (IOptionMenu iOptionMenu : listMenu) {
+			actions.put(i, iOptionMenu);
+			i++;
+		}
         this.scanner = scanner;
     }
 
