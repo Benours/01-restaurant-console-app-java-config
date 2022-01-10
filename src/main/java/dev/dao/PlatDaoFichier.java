@@ -11,11 +11,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import static java.util.stream.Collectors.toList;
 
 @Component
+@Profile("fichier")
 public class PlatDaoFichier implements IPlatDao {
 
     private String fichierStockage;
